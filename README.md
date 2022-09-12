@@ -13,20 +13,26 @@ The purpose of this project is to demonstrate a Full-stack Responsive Website im
 
 ### **Project setup:**
 **(Will be updated as the project progresses)**
-> 1. Clone the repo
+```sh
+ 1. Clone the repo
 	git clone https://github.com/philomath14/bookclone-app.git
+```
 
-> 2.  Install npm packages
+```sh
+ 2.  Install npm packages
 	npm install 
-
+```
 
 ## **MVP**
 
-### **Problem Statement:** Access book information, Create/Read/Update/Delete reviews, Add books to bookshelf
+### **Problem Statement:** 
+Access book information, Create/Read/Update/Delete reviews, Add books to bookshelf
 
-### **Product Vision/Solution:** A reader’s favorite social media where they can talk all things books- browse books, add reviews and keep track of the books read.
+### **Product Vision/Solution:** 
+A reader’s favorite social media where they can talk all things books- browse books, add reviews and keep track of the books read.
 
-### **Who:** Anyone
+### **Who:** 
+Anyone
 
 ### **Use Cases:**
 1. Search for Books
