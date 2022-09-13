@@ -1,0 +1,25 @@
+{
+  "name": "gitrepo",
+  "version": "1.0.0",
+  "description": "The purpose of this project is to demonstrate a Full-stack Responsive Website implementing full CRUD and restful services and deploy on Heroku. The project itself is based on goodreads website but with limited functionalities/features sufficient to demonstrate the skills of full-stack web development.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/philomath14/bookclone-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/philomath14/bookclone-app/issues"
+  },
+  "homepage": "https://github.com/philomath14/bookclone-app#readme",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "mongoose": "^6.6.0"
+  }
+}
