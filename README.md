@@ -46,3 +46,8 @@ Anyone
 
 ## **Contact:**
 (To be updated)
+
+## **Attribution**
+- The "best_books_ever.json" dataset was retrieved from this [source](https://github.com/scostap/goodreads_bbe_dataset)
+
+	> Lorena Casanova Lozano, & Sergio Costa Planells. (2020). Best Books Ever Dataset (Version 1.0.0) [Data set]. Zenodo. http://doi.org/10.5281/zenodo.4265096
