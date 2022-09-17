@@ -1,4 +1,7 @@
-[
+// Source for data: https://github.com/scostap/goodreads_bbe_dataset
+// Number of books: 100 
+
+module.exports = [
     {
         "bookId": "2767052-the-hunger-games",
         "title": "The Hunger Games",
