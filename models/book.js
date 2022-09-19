@@ -8,7 +8,13 @@ const BookSchema = new Schema({
     year: Number,
     genre: Array,
     rating: String,
-    image: String
+    image: String,
+    reviews: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Review'
+        }
+    ]
 });
 
 module.exports = mongoose.model('Book', BookSchema);

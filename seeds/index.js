@@ -14,7 +14,7 @@ db.once("open", () => {
 const seedDB = async() => {
     await Book.deleteMany({});
     
-    for(let i = 1; i < 5; i++){
+    for(let i = 1; i < 15; i++){
         
         const random = Math.floor(Math.random()*50);
         const book = new Book({

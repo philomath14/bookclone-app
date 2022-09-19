@@ -1,20 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Browse Books</title>
-</head>
-<body>
+<% layout('layouts/boilerplate')%>
    <h1>Browse The Most Popular Books</h1>
    <ul>
       
        <%for(let book of books){%>
-           <li><%=book.title%></li>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="col">
+              <div class="card">
+                <a href="/books/<%=book._id%>"><img src="<%=book.image%>" class="card-img-top" alt="Cover Not Available"></a>
+                <div class="card-body">
+                    <a href="/books/<%=book._id%>"><h5 class="card-title"><%=book.title%></h5></a>
+                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                </div>
+              </div>
+            </div>
+          </div>
        <%}%>
    </ul>
   
-</body>
-</html>
 
