@@ -1,7 +1,10 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
+const Joi = require('joi');
+
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
 const session = require('express-session');
@@ -10,6 +13,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const Book = require('./models/book');
 const Review = require('./models/review');
+const { reviewSchema } = require('./schemas.js');
 const User = require('./models/user');
 
 mongoose.connect('mongodb://localhost:27017/bookthing');
@@ -24,7 +28,9 @@ const app = express();
 
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'))
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.urlencoded({extended : true}));
+app.use(methodOverride('_method'));
 
 
 const sessionConfig = {
@@ -54,6 +60,17 @@ app.use((req,res,next) => {
     next();
 })
 
+//Server-side validation 
+const validateReview = (req,res,next) => {
+    const { error } = reviewSchema.validate(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',')
+        throw new ExpressError(msg, 400)
+    } else {
+        next();
+    }
+}
+
 //Testing Authentication - Route will be removed later
 app.get('/newFakeUser',async(req,res)=>{
     const user = new User({email: 'dummy@gmail.com', username: 'dummy'});
@@ -75,22 +92,30 @@ app.get('/books', catchAsync(async(req,res)=> {
 
 //Book Description Route
 app.get('/books/:id', catchAsync(async(req,res)=>{
-    const book = await Book.findById(req.params.id);
+    const book = await Book.findById(req.params.id).populate('reviews');
     res.render('books/show',{book});
 }));
 
+
+
 //Route for Posting Review
 
-app.post('/books/:id/reviews',catchAsync(async(req,res)=>{
-    const book = await Book.findById(req.params.id);
+app.post('/books/:id/reviews', validateReview, catchAsync(async(req,res)=>{
+  const book = await Book.findById(req.params.id);
     const review = new Review(req.body.review);
     book.reviews.push(review);
     await review.save();
     await book.save();
     res.redirect(`/books/${book._id}`);
-    
 }))
 
+//Deleting Review Route
+app.delete('/books/:id/reviews/:reviewId',catchAsync(async(req,res)=>{
+    const {id, reviewId} = req.params;
+    await Book.findByIdAndUpdate(id,{pull: {reviews: reviewId}});
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/books/${id}`);
+}))
 
 
 app.all('*', (req, res, next)=> {
