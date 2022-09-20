@@ -9,6 +9,7 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const Book = require('./models/book');
+const Review = require('./models/review');
 const User = require('./models/user');
 
 mongoose.connect('mongodb://localhost:27017/bookthing');
@@ -77,6 +78,20 @@ app.get('/books/:id', catchAsync(async(req,res)=>{
     const book = await Book.findById(req.params.id);
     res.render('books/show',{book});
 }));
+
+//Route for Posting Review
+
+app.post('/books/:id/reviews',catchAsync(async(req,res)=>{
+    const book = await Book.findById(req.params.id);
+    const review = new Review(req.body.review);
+    book.reviews.push(review);
+    await review.save();
+    await book.save();
+    res.redirect(`/books/${book._id}`);
+    
+}))
+
+
 
 app.all('*', (req, res, next)=> {
     next(new ExpressError('Page Not Found', 404))

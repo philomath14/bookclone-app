@@ -13,22 +13,21 @@ db.once("open", () => {
 
 const seedDB = async() => {
     await Book.deleteMany({});
-    
-    for(let i = 1; i < 15; i++){
-        
-        const random = Math.floor(Math.random()*50);
+   
+    for(let i = 0; i < books.bbe.length; i++){
         const book = new Book({
-            title: `${books.bbe[random].title}`,
-            author: `${books.bbe[random].author}`,
-            rating: `${books.bbe[random].rating}`,
-            genre: `${books.bbe[random].genres}`,
-            image: `${books.bbe[random].coverImg}`
-            //description: `${books.paperbacks[random].description}`
-
+            title: `${books.bbe[i].title}`,
+            author: `${books.bbe[i].author}`,
+            avgRating: `${books.bbe[i].rating}`,
+            genre: `${books.bbe[i].genres}`,
+            image: `${books.bbe[i].coverImg}`,
+            //description: `${books.paperbacks[i].description}`
+  
         })
         await book.save();
     }
-}
+ }
+ 
 seedDB().then(() => {
     mongoose.connection.close();
 })
