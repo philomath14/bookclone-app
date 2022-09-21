@@ -1,0 +1,48 @@
+<% layout('layouts/boilerplate')%>
+<link rel="stylesheet" href="/public/stylesheets/star-rating.css">
+
+<div class="row">
+  <div class="col-6 offset-3">
+    <div class="card mb-3" style="width: 18rem;">
+      <img src="<%=book.image%>" class="card-img-top" alt="Cover Not Available">
+      <div class="card-body">
+        <h5 class="card-title"><%=book.title%></h5>
+        <h3 class="card-text text-muted"><%=book.author%></h3>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="/books" class="btn btn-primary">Show All Books</a>
+      </div>
+  </div>
+  </div>
+  <div class="col-6">
+    <h2>Leave a Review</h2>
+    <form action="/books/<%=book._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate >
+        <div class="mb-3">
+            <label class="form-label" for="rating">Rating</label>
+            <input class="form-range" type="range" min="1" max="5" name="review[rating]" id="rating">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="body">Review</label>
+            <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" required></textarea>
+            <div class="valid-feedback">
+              Looks good!
+            </div>
+        </div>
+        
+        <button class="btn btn-success">Submit</button>
+    </form>
+    <% for(let review of book.reviews) { %>
+        <div class="mb-3">
+          <p>Rating: <%=review.rating%></p>
+          <p>Review: <%=review.body%></p>
+        </div>
+        <form action="/books/<%=book._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
+          <button class="btn btn-sm btn-danger mb-3">Delete</button>
+        </form>
+      <% } %>
+  </div>
+  </div>
+</div>
+
+
+
+
