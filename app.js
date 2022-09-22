@@ -12,9 +12,11 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const Book = require('./models/book');
-const Review = require('./models/review');
-const { reviewSchema } = require('./schemas.js');
+
 const User = require('./models/user');
+
+const books = require('./routes/books');
+const reviews = require('./routes/reviews');
 
 mongoose.connect('mongodb://localhost:27017/bookthing');
  
@@ -60,17 +62,9 @@ app.use((req,res,next) => {
     next();
 })
 
-//Server-side validation 
-const validateReview = (req,res,next) => {
-    const { error } = reviewSchema.validate(req.body);
-    if (error) {
-        const msg = error.details.map(el => el.message).join(',')
-        throw new ExpressError(msg, 400)
-    } else {
-        next();
-    }
-}
 
+app.use('/books',books);
+app.use('/books/:id/reviews', reviews);
 //Testing Authentication - Route will be removed later
 app.get('/newFakeUser',async(req,res)=>{
     const user = new User({email: 'dummy@gmail.com', username: 'dummy'});
@@ -79,42 +73,9 @@ app.get('/newFakeUser',async(req,res)=>{
 })
 
 //Home route
-app.get('/',async(req,res)=>{
+app.get('/',catchAsync(async(req,res)=>{
     const books = await Book.find({}).limit(4);
     res.render('home', {books});
-})
-
-//We will keep this route if we use 'Browse' button instead of Search Bar
-app.get('/books', catchAsync(async(req,res)=> {
-    const books = await Book.find({}).limit(10);
-    res.render('books/index',{books});
-}));
-
-//Book Description Route
-app.get('/books/:id', catchAsync(async(req,res)=>{
-    const book = await Book.findById(req.params.id).populate('reviews');
-    res.render('books/show',{book});
-}));
-
-
-
-//Route for Posting Review
-
-app.post('/books/:id/reviews', validateReview, catchAsync(async(req,res)=>{
-  const book = await Book.findById(req.params.id);
-    const review = new Review(req.body.review);
-    book.reviews.push(review);
-    await review.save();
-    await book.save();
-    res.redirect(`/books/${book._id}`);
-}))
-
-//Deleting Review Route
-app.delete('/books/:id/reviews/:reviewId',catchAsync(async(req,res)=>{
-    const {id, reviewId} = req.params;
-    await Book.findByIdAndUpdate(id,{pull: {reviews: reviewId}});
-    await Review.findByIdAndDelete(reviewId);
-    res.redirect(`/books/${id}`);
 }))
 
 
