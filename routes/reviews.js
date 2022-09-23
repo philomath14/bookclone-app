@@ -5,6 +5,7 @@ const ExpressError = require('../utils/ExpressError');
 const Book = require('../models/book');
 const Review = require('../models/review');
 const { reviewSchema } = require('../schemas.js');
+const {isLoggedIn} = require('../middleware');
 
 //Server-side validation 
 const validateReview = (req,res,next) => {
@@ -19,7 +20,7 @@ const validateReview = (req,res,next) => {
 
 //Route for Posting Review
 
-router.post('/', validateReview, catchAsync(async(req,res)=>{
+router.post('/', isLoggedIn, validateReview, catchAsync(async(req,res)=>{
     const book = await Book.findById(req.params.id);
       const review = new Review(req.body.review);
       book.reviews.push(review);
@@ -30,7 +31,7 @@ router.post('/', validateReview, catchAsync(async(req,res)=>{
   }))
   
   //Deleting Review Route
-  router.delete('/:reviewId',catchAsync(async(req,res)=>{
+  router.delete('/:reviewId',isLoggedIn,catchAsync(async(req,res)=>{
       const {id, reviewId} = req.params;
       await Book.findByIdAndUpdate(id,{pull: {reviews: reviewId}});
       await Review.findByIdAndDelete(reviewId);

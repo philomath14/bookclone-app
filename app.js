@@ -15,8 +15,10 @@ const Book = require('./models/book');
 
 const User = require('./models/user');
 
-const books = require('./routes/books');
-const reviews = require('./routes/reviews');
+const usersRoutes = require('./routes/users');
+const booksRoutes = require('./routes/books');
+const reviewsRoutes = require('./routes/reviews');
+
 
 mongoose.connect('mongodb://localhost:27017/bookthing');
  
@@ -58,20 +60,17 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req,res,next) => {
+    
+    //console.log(req.session);
+    res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
 })
 
-
-app.use('/books',books);
-app.use('/books/:id/reviews', reviews);
-//Testing Authentication - Route will be removed later
-app.get('/newFakeUser',async(req,res)=>{
-    const user = new User({email: 'dummy@gmail.com', username: 'dummy'});
-    const regNewUser = await User.register(user,'dummy1234');
-    res.send(regNewUser);
-})
+app.use('/',usersRoutes);
+app.use('/books',booksRoutes);
+app.use('/books/:id/reviews', reviewsRoutes);
 
 //Home route
 app.get('/',catchAsync(async(req,res)=>{
