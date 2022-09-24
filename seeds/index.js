@@ -20,8 +20,8 @@ const seedDB = async() => {
             author: `${books.bbe[i].author}`,
             avgRating: `${books.bbe[i].rating}`,
             genre: `${books.bbe[i].genres}`,
-            image: `${books.bbe[i].coverImg}`,
-            //description: `${books.paperbacks[i].description}`
+            image: `${books.bbe[i].coverImg}`
+            //description:`${books.paperbacks[i].description}`
   
         })
         await book.save();

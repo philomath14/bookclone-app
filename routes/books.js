@@ -12,7 +12,8 @@ router.get('/', catchAsync(async(req,res)=> {
 
 //Book Description Route
 router.get('/:id', catchAsync(async(req,res)=>{
-    const book = await Book.findById(req.params.id).populate('reviews');
+    const book = await Book.findById(req.params.id).populate({path:'reviews', populate:{path:'author'}});
+    //console.log(book);
     res.render('books/show',{book});
 }));
 
