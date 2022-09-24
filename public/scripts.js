@@ -1,1 +1,0 @@
-// DOM manipulation & API fetch calls goes here
