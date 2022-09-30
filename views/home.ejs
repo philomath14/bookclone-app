@@ -10,16 +10,18 @@
 </head>
 <body>
     <div class="header">
-        <%//To be replaced with Search bar%>
-        <button>Browse Our Selection</button>
-        <img src="https://images.unsplash.com/photo-1591492654773-6756035bef6b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTMyfHxib29rfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60" alt="">
-        <h1>BookThing Landing Page</h1>
-        <button><a href="/login">sign in</a></button>
-        <button><a href="/register">sign up</a></button>
+       
+       <a href="/books"><button>Browse</button></a> 
+        
+        <h1>BookThing</h1>
+        <p>READ THE NEXT BEST THING!</p>
+        <a href="/login"><button>sign in</button></a>
+        <a href="/register"><button>sign up</button></a>
+        
     </div>
     
     <div class="bookDisplay">
-        <h2>Discover Your Favorite Reads</h2>
+        <h2>Discover Only The Best</h2>
  
         <%for(let book of books){%>
              <p>
@@ -31,8 +33,8 @@
     </div>
         
     <div>
-        <h2>See What Others Are Reading</h2>
-        <%//Flash the books here%>
+        <h2>Express Your Bookish Emotions</h2>
+ 
         <%for(let book of books){%>
             <p>
                 <a href="/books/<%=book._id%>"><img src = "<%=book.image%>" alt="Image n/a"></a>
@@ -43,7 +45,7 @@
     </div>
     
     <div>
-        <h2>Keep Track of Books Read</h2>
+        <h2>Record Your Reading Obsession</h2>
         <p>Ellie read <span>25</span books in 2022></p>
         <p>Sam read <span>38</span books in 2022></p>
     </div>
