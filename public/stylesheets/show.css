@@ -1,0 +1,9 @@
+ #searchbox{
+    display:none;
+    flex-wrap: wrap;
+  }
+
+.btn{
+   justify-content: center;
+}
+

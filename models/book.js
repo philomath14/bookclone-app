@@ -5,10 +5,14 @@ const BookSchema = new Schema({
     title: String,
     author: String,
     description: String,
-    year: Number,
+    year: String,
     genre: Array,
     avgRating: String,
     image: String,
+    series: String,
+    pages: String,
+    awards: Array,
+    liked: String,
     reviews: [
         {
             type: Schema.Types.ObjectId,
