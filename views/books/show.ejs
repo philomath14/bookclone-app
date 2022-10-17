@@ -5,25 +5,29 @@
   <div class="book-wrapper">
     <div class="row justify-content-center">
       <div class="col-lg-4 mb-3">
-        <div class="card h-100 mb-3" style="width: 18rem;">
+        <div class="card shadow mb-3" style="width: 18rem;">
           <img src="<%=book.image%>" class="card-img-top" alt="Cover Not Available">
-          <div class="card-body">
+          <div class="card-body text-center">
            
-            <h6 class="card-title text-center">Average rating: <%=book.avgRating%></h6>
-            <h6 class="card-subtitle text-center">Liked by <%=book.liked%>%</h6>
+            <h6 class="card-title">Average rating: <%=book.avgRating%></h6>
+            <h6 class="card-subtitle">Liked by <%=book.liked%>%</h6>
+            <%if(currentUser){%>
+              <button class="btn btn-success mt-3">Mark as read</button>
+          <%}%>
+           
       
           </div>
       </div>
       </div>
       <div class="col-lg-8 mb-3">
-        <div class="card h-100 w-100 mb-3" style="width: 18rem;">
+        <div class="card shadow  w-100 mb-3 " style="width: 18rem;">
           <div class="card-body">
             <h3 class="card-title text-muted"><%=book.title%> <span>by</span> <%=book.author%> </h3>
             <h4><%=book.series%></h4>
             <p id="year">Published: <%=book.year%> | Pages: <%=book.pages%> </p>
            
             <h6><%=book_genres%></h6>
-            <h4 class="card-title">Description</h4>
+            <h4 class="card-title my-1">Description</h4>
             <p class="card-body"><%=book.description%></p>
            
           </div>
@@ -65,7 +69,7 @@
       </form>
       <%}%>
       <% for(let review of book.reviews) { %>
-          <div class="card mb-3">
+          <div class="card shadow mb-3">
             <div class="card-body">
               <h5 class="card-title"><%=review.author.username%></h5>
               <p class="starability-result" data-rating="<%=review.rating%>">
@@ -76,7 +80,8 @@
           </div>
           <%if(currentUser && review.author.equals(currentUser._id)){%>
           <form action="/books/<%=book._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
-            <button class="btn btn-sm btn-danger mb-3">Delete</button>
+            <button class="btn btn-sm btn-success mb-3">Edit</button>
+            <button class="btn btn-sm btn-danger mb-3 ms-2">Delete</button>
           </form>
           <% } %>
         <%}%>

@@ -19,3 +19,10 @@ module.exports.createReview = async(req,res)=>{
     req.flash('success', 'Your review has been deleted!');
     res.redirect(`/books/${id}`);
 }
+
+//Make Edit Review Route
+/*
+module.exports.editReview = async(req,res)=>{
+  const book = await Book.findById(req.params.id);
+  res.render(`/books/${book._id}`);
+}*/
