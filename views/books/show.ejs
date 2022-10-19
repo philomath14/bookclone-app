@@ -71,7 +71,7 @@
       <% for(let review of book.reviews) { %>
           <div class="card shadow mb-3">
             <div class="card-body">
-              <h5 class="card-title"><%=review.author.username%></h5>
+              <h5 class="card-title"><a href="/users/<%=review.author._id%>"><%=review.author.username%></a></h5>
               <p class="starability-result" data-rating="<%=review.rating%>">
                 Rated: <%=review.rating%> stars
               </p>
@@ -80,7 +80,6 @@
           </div>
           <%if(currentUser && review.author.equals(currentUser._id)){%>
           <form action="/books/<%=book._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
-            <button class="btn btn-sm btn-success mb-3">Edit</button>
             <button class="btn btn-sm btn-danger mb-3 ms-2">Delete</button>
           </form>
           <% } %>

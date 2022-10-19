@@ -5,11 +5,14 @@ const catchAsync = require('../utils/catchAsync');
 const User = require('../models/user');
 const users = require('../controllers/users');
 
+
+
+//show user profile
+router.get('/users/:id', catchAsync(users.showUserProfile));
+
 //New User Registration Routes
 //create a new account: serve the registration form 
 //create a new account: submit the registration form
-
-
 router.route('/register')
     .get(users.renderRegister)
     .post(catchAsync(users.register));
