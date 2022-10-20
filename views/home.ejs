@@ -7,52 +7,120 @@
     <title>BookThing Home</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
     integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vesper+Libre&display=swap" rel="stylesheet">   
+    <link rel="stylesheet" href="/stylesheets/home.css">
 </head>
 <body>
-    <div class="header">
-       
-       <a href="/books"><button>Browse</button></a> 
+  <header id="showcase" class="d-flex text-center text-white bg-dark">
+
+    <div class="content-wrap d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <a href="/books"><button class="btn btn-browse">BROWSE</button></a>
+
+        <h1><svg xmlns="http://www.w3.org/2000/svg" width="1em" height=".65em" fill="#4d2814" class="bi bi-book-half" viewBox="0 0 16 16">
+            <path d="M8.5 2.687c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+          </svg>BookThing</h1>
+        <p><b>READ THE NEXT BEST THING!</b></p>
+        <div class="user-buttons">
+            <a href="/login"><button class="btn btn-left">sign in</button></a>
+            <a href="/register"><button class="btn btn-right">sign up</button></a>
+        </div>
         
-        <h1>BookThing</h1>
-        <p>READ THE NEXT BEST THING!</p>
-        <a href="/login"><button>sign in</button></a>
-        <a href="/register"><button>sign up</button></a>
-        
-    </div>
-    
-    <div class="bookDisplay">
-        <h2>Discover Only The Best</h2>
- 
-        <%for(let book of books){%>
-             <p>
-                 <a href="/books/<%=book._id%>"><img src = "<%=book.image%>" alt="Image n/a"></a>
-                 <%=book.title%>
-                 <%=book.avgRating%>
-             </p>
-         <%}%>
-    </div>
-        
-    <div>
-        <h2>Express Your Bookish Emotions</h2>
- 
-        <%for(let book of books){%>
-            <p>
-                <a href="/books/<%=book._id%>"><img src = "<%=book.image%>" alt="Image n/a"></a>
-                <%=book.title%>
-                <p>Review: Kei te taka riri nga tuakana ki a Maui, heoi ano ka karanga atu a Maui, “konei ahau i runga ano i te karanga o Murirangawhenua, nana i kii mai, he toa mo te hii-ika e hika, na reira, i ahau e karakia ano, whakararo ou rakau hii-ika, kaore e kore ka rapuhia e koe te tini, te mano o nga ika.”</p>
-            </p>
+</div>
+</header>
+
+<%/*%>
+<div class="demo">
+  <h2>Demo</h2>
+  <%books.foreach((book,index)=>{%>
+    <p><%=index%></p>
+    <img src="<%=book.image%>" alt="">
+  <%})%>
+<%*/%>
+
+</div>
+<section id="bookDisplay">
+  <div class="container">
+    <h2 class="text-center mb-3 p-3">Discover Only The Best</h2>
+    <div class="row gx-3 gy-1 mb-3">
+      <%for(let book of books){%>
+        <div class="col-12 col-md-6 col-lg-3 py-5">
+          <div class="card shadow h-100 mx-auto" style="width: 12rem;">
+            <a href="/books/<%=book._id%>"><img src="<%=book.image%>" class="img-thumbnail" alt=""></a>
+            <div class="card-body book-cards">
+              <a href="/books/<%=book._id%>"><h5 class="card-title"><%=book.title%></h5></a>
+                <h6 class="card-subtitle"><%=book.author%></h6>
+            </div>
+          </div>
+        </div>
         <%}%>
+  
     </div>
-    
-    <div>
-        <h2>Record Your Reading Obsession</h2>
-        <p>Ellie read <span>25</span books in 2022></p>
-        <p>Sam read <span>38</span books in 2022></p>
+  </div>
+</section>
+
+<section id="bookReview" class="p-3">
+  <div class="container">
+    <h2 class="text-center py-3 mb-4">Express Your Bookish Emotions</h2>
+    <div class="reviews">
+      <div class="row mb-4 g-2">
+        <div class="col-12 col-sm-6 d-md-flex justify-content-md-center">
+          <img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1345958969l/128029.jpg" class="img-thumbnail" style="width: 12rem" alt="book review 1">
+        </div>
+        <div class="col-12 col-sm-6 align-self-center justify-content-md-center">
+          <div class="content-width">
+            <blockquote class="mb-4 blockquote">"I te wahangūtanga o te iwi, ka tīkina atu e Māui te kauae a tōna tipuna mai i tana tātau, me tana piupiu haere. He maha ngā mea i kīia kāore e taea, ēngari i taea e au, 
+              te tiki i te ahi mai i a Mahuika, te heke atu ki Rarohenga."</blockquote>
+              <figcaption class="blockquote-footer">
+              <b>Sheldon Cooper</b>
+              </figcaption>
+          </div>
+         
+        </div>
+      </div>
     </div>
+  </div>
+ 
+
+  <div class="reviews">
+    <div class="row mb-4 g-2">
+      <div class="col-12 col-sm-6 d-md-flex justify-content-md-center order-sm-1">
+        <img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1562726234l/13496.jpg" class="img-thumbnail" style="width: 12rem" alt="book review 1">
+       
+        </div>
+        
+      <div class="col-12 col-sm-6 align-self-center justify-content-md-center mb-4">
+        <div class="content-width">
+          <blockquote class="mb-4 blockquote">"Ā, tere tonu tētahi o ngā tuākana ahi.  hopu i te rā, he nui ake i ngā manu kua mau i a koe! Ka rongo koe i tōna wera, ka kī atu tētahi. 
+            "Te āhua nei kua pakapaka ōna whakaaro i te rā, te kī a tētahi atu, me tā rātau kata anō."</blockquote>
+            <figcaption class="blockquote-footer">
+              <b>Will Wheaton</b>
+              </figcaption>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <section id="bookShelf">
+      <div class="container p-4 text-center">
+        <div>
+          <h2 class="mb-4">Record Your Reading Obsession</h2>
+          <h4>Ellie has read <span style="color:red"><b>25</b></span> books!</h4>
+          <h4>Sam has read <span style="color:red"><b>38</b></span> books!</h4>
+      </div>
+      </div>
+    </section>
 
     <footer>
-        <p>&copy; 2022</p>
-        <h3>Scroll To Top</h3>
+      <div class="footer-width">
+        <h5 class="text-center p-5">&copy; 2022, BookThing</h5>
+      </div>
+        
    </footer>
  
    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"

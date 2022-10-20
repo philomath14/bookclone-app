@@ -20,13 +20,20 @@ const seedDB = async() => {
             author: `${books.bbe[i].author}`,
             avgRating: `${books.bbe[i].rating}`,
             genre: `${books.bbe[i].genres}`,
-            image: `${books.bbe[i].coverImg}`
-            //description:`${books.paperbacks[i].description}`
+            image: `${books.bbe[i].coverImg}`,
+            description:`${books.bbe[i].description}`,
+            series: `${books.bbe[i].series}`,
+            pages: `${books.bbe[i].pages}`,
+            awards: `${books.bbe[i].awards}`,
+            year:`${books.bbe[i].publishDate}`,
+            liked: `${books.bbe[i].likedPercent}`
   
         })
         await book.save();
     }
  }
+
+ 
  
 seedDB().then(() => {
     mongoose.connection.close();

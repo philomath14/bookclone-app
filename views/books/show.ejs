@@ -1,68 +1,95 @@
 <% layout('layouts/boilerplate')%>
+<link rel="stylesheet" href="/stylesheets/show.css">
 <link rel="stylesheet" href="/stylesheets/starheart-rating.css">
-
-<div class="row">
-  <div class="col-6 offset-3 mb-3">
-    <div class="card mb-3" style="width: 18rem;">
-      <img src="<%=book.image%>" class="card-img-top" alt="Cover Not Available">
-      <div class="card-body">
-        <h5 class="card-title"><%=book.title%></h5>
-        <h3 class="card-text text-muted"><%=book.author%></h3>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="/books" class="btn btn-primary">Show All Books</a>
+<div class="container">
+  <div class="book-wrapper">
+    <div class="row justify-content-center">
+      <div class="col-lg-4 mb-3">
+        <div class="card shadow mb-3" style="width: 18rem;">
+          <img src="<%=book.image%>" class="card-img-top" alt="Cover Not Available">
+          <div class="card-body text-center">
+           
+            <h6 class="card-title">Average rating: <%=book.avgRating%></h6>
+            <h6 class="card-subtitle">Liked by <%=book.liked%>%</h6>
+            <%if(currentUser){%>
+              <button class="btn btn-success mt-3">Mark as read</button>
+          <%}%>
+           
+      
+          </div>
       </div>
-  </div>
-  </div>
-  <div class="col-6">
-    <%if(currentUser){%>
-    <h2>Leave a Review</h2>
-    <form action="/books/<%=book._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate >
-        <div class="mb-3">
-          <fieldset class="starability-heart">
-            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
-            <input type="radio" id="first-rate1" name="review[rating]" value="1" />
-            <label for="first-rate1" title="Terrible">1 star</label>
-            <input type="radio" id="first-rate2" name="review[rating]" value="2" />
-            <label for="first-rate2" title="Not good">2 stars</label>
-            <input type="radio" id="first-rate3" name="review[rating]" value="3" />
-            <label for="first-rate3" title="Average">3 stars</label>
-            <input type="radio" id="first-rate4" name="review[rating]" value="4" />
-            <label for="first-rate4" title="Very good">4 stars</label>
-            <input type="radio" id="first-rate5" name="review[rating]" value="5" />
-            <label for="first-rate5" title="Amazing">5 stars</label>
-          </fieldset>
-        </div>
-        
-        <div class="form-group mb-3">
-            <label class="form-label" for="body">Review</label>
-            <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" required></textarea>
-            <div class="invalid-feedback">
-              You cannot submit an empty review!
-              </div>
-        </div>
-        
-        <button class="btn btn-success">Submit</button>
-    </form>
-    <%}%>
-    <% for(let review of book.reviews) { %>
-        <div class="card mb-3">
+      </div>
+      <div class="col-lg-8 mb-3">
+        <div class="card shadow  w-100 mb-3 " style="width: 18rem;">
           <div class="card-body">
-            <h5 class="card-title"><%=review.author.username%></h5>
-            <p class="starability-result" data-rating="<%=review.rating%>">
-              Rated: <%=review.rating%> stars
-            </p>
-            <p>Review: <%=review.body%></p>
+            <h3 class="card-title text-muted"><%=book.title%> <span>by</span> <%=book.author%> </h3>
+            <h4><%=book.series%></h4>
+            <p id="year">Published: <%=book.year%> | Pages: <%=book.pages%> </p>
+           
+            <h6><%=book_genres%></h6>
+            <h4 class="card-title my-1">Description</h4>
+            <p class="card-body"><%=book.description%></p>
+           
           </div>
         </div>
-        <%if(currentUser && review.author.equals(currentUser._id)){%>
-        <form action="/books/<%=book._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
-          <button class="btn btn-sm btn-danger mb-3">Delete</button>
-        </form>
-        <% } %>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="row my-3">
+    <div class="col-6 offset-4">
+      <%if(currentUser){%>
+      <h2>Leave a Review</h2>
+      <form action="/books/<%=book._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate >
+          <div class="my-3">
+            <fieldset class="starability-heart">
+              <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+              <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+              <label for="first-rate1" title="Terrible">1 star</label>
+              <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+              <label for="first-rate2" title="Not good">2 stars</label>
+              <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+              <label for="first-rate3" title="Average">3 stars</label>
+              <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+              <label for="first-rate4" title="Very good">4 stars</label>
+              <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+              <label for="first-rate5" title="Amazing">5 stars</label>
+            </fieldset>
+          </div>
+          
+          <div class="form-group mb-3">
+              <label class="form-label" for="body">Review</label>
+              <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" required></textarea>
+              <div class="invalid-feedback">
+                You cannot submit an empty review!
+                </div>
+          </div>
+          
+          <button class="btn btn-success">Submit</button>
+      </form>
       <%}%>
+      <% for(let review of book.reviews) { %>
+          <div class="card shadow mb-3">
+            <div class="card-body">
+              <h5 class="card-title"><a href="/users/<%=review.author._id%>"><%=review.author.username%></a></h5>
+              <p class="starability-result" data-rating="<%=review.rating%>">
+                Rated: <%=review.rating%> stars
+              </p>
+              <p>Review: <%=review.body%></p>
+            </div>
+          </div>
+          <%if(currentUser && review.author.equals(currentUser._id)){%>
+          <form action="/books/<%=book._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
+            <button class="btn btn-sm btn-danger mb-3 ms-2">Delete</button>
+          </form>
+          <% } %>
+        <%}%>
+    </div>
   </div>
-  </div>
+ 
 </div>
+
+<script src="/javascripts/show.js"></script>
 
 
 

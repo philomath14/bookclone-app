@@ -61,13 +61,6 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 app.use(flash());
-/*app.use(
-    helmet({
-      contentSecurityPolicy: false,
-    })
-  );
-*/
-/*app.use(helmet({ crossOriginEmbedderPolicy: false }));*/
 
 const scriptSrcUrls = [
     "https://stackpath.bootstrapcdn.com/",
@@ -126,8 +119,6 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req,res,next) => {
-    //console.log(req.query);
-    //console.log(req.session);
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
@@ -144,7 +135,13 @@ app.get('/',catchAsync(async(req,res)=>{
     res.render('home', {books});
 }))
 
-
+//User Profile Page - working code
+/*
+app.get('/users/:id',catchAsync(async(req,res)=>{
+    const foundUser = await User.findById(req.params.id);
+    res.render('userAuth/userprofile',{foundUser});
+}))
+*/
 app.all('*', (req, res, next)=> {
     next(new ExpressError('Page Not Found', 404))
 })
