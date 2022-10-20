@@ -26,23 +26,18 @@
           </svg>BookThing</h1>
         <p><b>READ THE NEXT BEST THING!</b></p>
         <div class="user-buttons">
+          <%if(!currentUser){%>
             <a href="/login"><button class="btn btn-left">sign in</button></a>
             <a href="/register"><button class="btn btn-right">sign up</button></a>
+          <%}else{%>
+            <a href="/users/<%=currentUser._id%>"><button class="btn">My Account</button></a>
+          <%}%>
+            
         </div>
         
 </div>
 </header>
 
-<%/*%>
-<div class="demo">
-  <h2>Demo</h2>
-  <%books.foreach((book,index)=>{%>
-    <p><%=index%></p>
-    <img src="<%=book.image%>" alt="">
-  <%})%>
-<%*/%>
-
-</div>
 <section id="bookDisplay">
   <div class="container">
     <h2 class="text-center mb-3 p-3">Discover Only The Best</h2>
