@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 const books = require('./books-sample');
 const Book = require('../models/book');
 
-
-mongoose.connect('mongodb://localhost:27017/bookthing');
+const dbUrl = 'mongodb+srv://test-user:uHDP5on8pWaeI7JJ@cluster0.xedfrj9.mongodb.net/?retryWrites=true&w=majority';
+//mongoose.connect('mongodb://localhost:27017/bookthing');
+mongoose.connect(dbUrl);
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));

@@ -10,7 +10,8 @@ const UserSchema = new Schema({
     },
     avatar: String,
     firstname: String,
-    lastname: String
+    lastname: String,
+    booksRead: Number
 });
 
 UserSchema.plugin(passportLocalMongoose);

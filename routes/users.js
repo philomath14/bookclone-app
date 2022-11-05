@@ -8,7 +8,11 @@ const users = require('../controllers/users');
 
 
 //show user profile
-router.get('/users/:id', catchAsync(users.showUserProfile));
+//submit booksReads & display on user profile
+
+router.route('/users/:id')
+    .get(catchAsync(users.showUserProfile))
+    .post(catchAsync(users.showUserProfile));
 
 //New User Registration Routes
 //create a new account: serve the registration form 

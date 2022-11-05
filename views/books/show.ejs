@@ -12,7 +12,9 @@
             <h6 class="card-title">Average rating: <%=book.avgRating%></h6>
             <h6 class="card-subtitle">Liked by <%=book.liked%>%</h6>
             <%if(currentUser){%>
-              <button class="btn btn-success mt-3" id="readbtn">Mark As Read</button>
+              <form action="/users/<%=currentUser._id%>" method="POST" class="mb-3 validated-form" novalidate >
+                <button class="btn btn-success mt-3" id="readbtn">Mark As Read</button>
+              </form>
           <%}%>
            
       
