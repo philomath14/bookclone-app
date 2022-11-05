@@ -12,6 +12,7 @@ const Joi = require('joi');
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
@@ -25,9 +26,12 @@ const helmet = require("helmet");
 const usersRoutes = require('./routes/users');
 const booksRoutes = require('./routes/books');
 const reviewsRoutes = require('./routes/reviews');
+const dbUrl = process.env.DB_URL;
+//const dbUrl = 'mongodb://localhost:27017/bookthing';
 
 
-mongoose.connect('mongodb://localhost:27017/bookthing');
+mongoose.connect(dbUrl);
+
  
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -45,8 +49,22 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(mongoSanitize());
 
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: 'squirrel'
+    }
+});
+
+
+store.on("error", function (e) {
+    console.log("SESSION STORE ERROR", e)
+})
+
 
 const sessionConfig = {
+    store,
     name: 'cookieThing',
     secret: 'tempsecret',
     resave: false,
@@ -135,13 +153,6 @@ app.get('/',catchAsync(async(req,res)=>{
     res.render('home', {books});
 }))
 
-//User Profile Page - working code
-/*
-app.get('/users/:id',catchAsync(async(req,res)=>{
-    const foundUser = await User.findById(req.params.id);
-    res.render('userAuth/userprofile',{foundUser});
-}))
-*/
 app.all('*', (req, res, next)=> {
     next(new ExpressError('Page Not Found', 404))
 })

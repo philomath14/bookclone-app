@@ -7,7 +7,7 @@
 
 #showcase{
     height:66vh;
-    background-image:linear-gradient(rgba(255, 255, 255,0.9), rgba(0, 0, 0, 0.1)), url("https://images.unsplash.com/photo-1600431521340-491eca880813?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8bGlicmFyeXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60") ;
+    background-image:linear-gradient(rgba(255, 255, 255,0.6), rgba(0, 0, 0, 0.1)), url("https://images.unsplash.com/photo-1600431521340-491eca880813?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8bGlicmFyeXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60") ;
     background-position: center;
     background-size: cover;
     display: flex;
@@ -69,17 +69,12 @@
 }
 
 h2{
-    color:rgb(75,50,24);
-    background: -webkit-linear-gradient(#4d2814,#AA771C,#80461B,#4d2814);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color:#80461B;
     font-weight:bolder;
 }
 
-
-
 #bookReview{
-    background: #F8F0E3;
+    background:#FFFAED;
    
 }
 
@@ -100,6 +95,6 @@ h4{
 }
 
 .footer-width{
-    background:#80461B;
+    background:#6F4E37;
     color:white;
 }
